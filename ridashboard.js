@@ -21,10 +21,8 @@ $(document).ready(function() {
 
   // Add a name to the list
   var addName = function(name) {
-    $.ajax({
-      url: 'http://us.battle.net/api/wow/character/' + realmSlug + '/' + name + '?fields=items,talents,progression',
-      dataType: 'jsonp',
-      jsonp: 'jsonp',
+    $.jsonp({
+      url: 'http://us.battle.net/api/wow/character/' + realmSlug + '/' + name + '?fields=items,talents,progression&jsonp=?',
       success: function(data){
         var html = '<p>'
         + talent(data, 0) + talent(data, 1)
@@ -38,6 +36,9 @@ $(document).ready(function() {
           $('#name-list').prepend(html);
           showOrHideNotes();
         }
+      },
+      error: function() {
+        $('#not-found').show().fadeOut();
       }
     });
   };
@@ -75,11 +76,8 @@ $(document).ready(function() {
   };
   
   // Populate dropdown menu with realms and select default
-  $.ajax({
-    url: "http://us.battle.net/api/wow/realm/status",
-    dataType: "jsonp",
-    jsonp: "jsonp",
-    timeout: 5000,
+  $.jsonp({
+    url: "http://us.battle.net/api/wow/realm/status?jsonp=?",
     success: function(data) {
       _(data.realms).each(function(realm) {
         $('#realm-list').append('<li><a href="#" data-slug="' + realm.slug + '">' + realm.name + '</a></li>');

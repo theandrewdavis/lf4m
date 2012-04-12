@@ -69,6 +69,17 @@ h1 {
   border:1px solid #999999;
   box-shadow:rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
 }
+#add {
+  position: relative;
+}
+#not-found {
+  color:#C41F3B;
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  margin: -0.4em 0 0 0;
+  display: none;
+}
 #notes {
   width:520px;
   margin:10px auto;
@@ -84,6 +95,7 @@ h1 {
 #realm-dropdown .disabled {
   color:#777;
   text-decoration: none;
+  cursor: default;
 }
 .dropdown-menu {
   float:right;
