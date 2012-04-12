@@ -29,7 +29,7 @@ $(document).ready(function() {
         var html = '<p>'
         + talent(data, 0) + talent(data, 1)
         + '<span class="name"><a href="http://us.battle.net/wow/en/character/' + data.realm + '/' + data.name +'/advanced" target="_blank" class="character-class-' + data['class'] + '">' + data.name + '</a></span>'
-        + '<a class="remove">x</a>'
+        + '<a class="remove">&times;</a>'
         + '<span class="progression">(' + progression(data, ['Firelands']) + '|' + progression(data, ['Dragon Soul']) + ')</span>'
         + '<span class="ilvl">(<span class="equipped">' + data.items.averageItemLevelEquipped + '</span>|' + data.items.averageItemLevel + ')</span>'
         + '</p>';

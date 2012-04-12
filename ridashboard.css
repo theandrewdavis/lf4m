@@ -45,6 +45,7 @@ h1 {
 }
 #name-list .remove {
   float:right;
+  font-size:1.4em;
   font-family:sans-serif;
   font-weight:bold;
   color:#C41F3B;
