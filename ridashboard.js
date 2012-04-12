@@ -1,6 +1,7 @@
 $(document).ready(function() {
   var realmSlug;
   var names = [];
+  var disabled = true;
 
   // Find the number of raid kill achievements
   var progression = function(json, raids) {
@@ -45,6 +46,7 @@ $(document).ready(function() {
   var clearNames = function() {
     names = [];
     $('#name-list').empty();
+    showOrHideNotes();
   }
 
   // Focus the 'add' input box
@@ -65,16 +67,28 @@ $(document).ready(function() {
     focusInput();
   };
 
+  // Enable input and realm select
+  var enableAll = function() {
+    $('#add input').prop('disabled', false);
+    $('#realm-dropdown .dropdown-toggle').removeClass('disabled');
+    focusInput();
+  };
+  
   // Populate dropdown menu with realms and select default
   $.ajax({
     url: "http://us.battle.net/api/wow/realm/status",
     dataType: "jsonp",
     jsonp: "jsonp",
+    timeout: 5000,
     success: function(data) {
       _(data.realms).each(function(realm) {
         $('#realm-list').append('<li><a href="#" data-slug="' + realm.slug + '">' + realm.name + '</a></li>');
       });
       changeRealm('Azgalor', 'azgalor');
+      enableAll();
+    },
+    error: function() {
+      $('#server-down').show();
     }
   });
 
@@ -98,4 +112,7 @@ $(document).ready(function() {
     showOrHideNotes();
     $(this).parent().remove();
   });
+  
+  // Disable dropdown toggle when .disabled is present
+  $('#realm-dropdown').on('click', '.disabled', function() {return false; });
 });

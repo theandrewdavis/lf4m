@@ -80,10 +80,23 @@ h1 {
   top:0;
   right:0;
 }
+#realm-dropdown .disabled {
+  color:#777;
+  text-decoration: none;
+}
 .dropdown-menu {
   float:right;
   left:auto;
   right:0;
+}
+#server-down {
+  width:506px;
+  padding: 8px 14px;
+  margin:10px auto;
+  display: none;
+}
+strong {
+  font-weight: bold;
 }
 .character-class-1 {
   color:#C79C6E;
