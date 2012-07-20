@@ -38,7 +38,7 @@ $(document).ready(function() {
         }
       },
       error: function() {
-        $('#not-found').show().fadeOut();
+        $('#not-found').clearQueue().show().delay(500).fadeOut();
       }
     });
   };
