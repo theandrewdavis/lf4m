@@ -35,6 +35,7 @@ $(document).ready(function() {
           names.push(data.name);
           $('#name-list').prepend(html);
           showOrHideNotes();
+          saveNames();
         }
       },
       error: function() {
@@ -74,12 +75,13 @@ $(document).ready(function() {
     $('#add input').prop('disabled', false);
     $('#realm-dropdown').show();
     focusInput();
+    loadNames();
   };
   
   // Save the current realm selection to a cookie
   var saveRealm = function(name, slug) {
-    $.cookie('realm-name', name, {expires: 10 * 365});
-    $.cookie('realm-slug', slug, {expires: 10 * 365});
+    $.cookie('realm-name', name, {expires: 365});
+    $.cookie('realm-slug', slug, {expires: 365});
   };
   
   // Load the saved realm selection
@@ -87,6 +89,17 @@ $(document).ready(function() {
     var name = $.cookie('realm-name') || 'Azgalor';
     var slug = $.cookie('realm-slug') || 'azgalor';
     changeRealm(name, slug);
+  };
+  
+  // Save character names to a cookie
+  var saveNames = function() {
+    $.cookie('characters', JSON.stringify(names), {expires: 365});
+  };
+  
+  // Load character names
+  var loadNames = function() {
+    var savedNames = JSON.parse($.cookie('characters')) || [];
+    _(savedNames).each(function(name) {addName(name);});
   };
   
   // Populate dropdown menu with realms and select default
