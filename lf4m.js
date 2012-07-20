@@ -1,5 +1,4 @@
 $(document).ready(function() {
-  var realmSlug;
   var names = [];
   var disabled = true;
 
@@ -22,7 +21,7 @@ $(document).ready(function() {
   // Add a name to the list
   var addName = function(name) {
     $.jsonp({
-      url: 'http://us.battle.net/api/wow/character/' + realmSlug + '/' + name + '?fields=items,talents,progression&jsonp=?',
+      url: 'http://us.battle.net/api/wow/character/' + $.cookie('realm-slug') + '/' + name + '?fields=items,talents,progression&jsonp=?',
       success: function(data){
         var html = '<p>'
         + talent(data, 0) + talent(data, 1)
@@ -47,6 +46,7 @@ $(document).ready(function() {
   // Clear all names from the list
   var clearNames = function() {
     names = [];
+    saveNames();
     $('#name-list').empty();
     showOrHideNotes();
   }
@@ -63,21 +63,11 @@ $(document).ready(function() {
 
   // Change the current realm
   var changeRealm = function(name, slug) {
-    realmSlug = slug;
     $('#realm-name').text(name);
     saveRealm(name, slug);
-    clearNames();
     focusInput();
   };
 
-  // Enable input and realm select
-  var enableAll = function() {
-    $('#add input').prop('disabled', false);
-    $('#realm-dropdown').show();
-    focusInput();
-    loadNames();
-  };
-  
   // Save the current realm selection to a cookie
   var saveRealm = function(name, slug) {
     $.cookie('realm-name', name, {expires: 365});
@@ -89,6 +79,14 @@ $(document).ready(function() {
     var name = $.cookie('realm-name') || 'Azgalor';
     var slug = $.cookie('realm-slug') || 'azgalor';
     changeRealm(name, slug);
+  };
+
+  // Enable input and realm select
+  var enableAll = function() {
+    $('#add input').prop('disabled', false);
+    $('#realm-dropdown').show();
+    focusInput();
+    loadNames();
   };
   
   // Save character names to a cookie
@@ -120,6 +118,7 @@ $(document).ready(function() {
   // Change the current realm when a dropdown item is selected
   $('#realm-list').on('click', 'a', function(event) {
     changeRealm($(this).text(), $(this).attr('data-slug'));
+    clearNames();
     event.preventDefault();
   });
 
@@ -134,10 +133,8 @@ $(document).ready(function() {
   $('#name-list').on('click', '.remove', function() {
     var name = $(this).parent().find('.name a').text();
     names = _(names).without(name);
+    saveNames();
     showOrHideNotes();
     $(this).parent().remove();
   });
-  
-  // Disable dropdown toggle when .disabled is present
-  $('#realm-dropdown').on('click', '.disabled', function() {return false; });
 });
