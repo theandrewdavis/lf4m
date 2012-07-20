@@ -91,14 +91,10 @@ h1 span {
   display: none;
 }
 #realm-dropdown {
+  display: none;
   position: absolute;
   top: 0;
-  right: 0;
-}
-#realm-dropdown .disabled {
-  color: #777;
-  text-decoration: none;
-  cursor: default;
+  right: 4px;
 }
 .dropdown-menu {
   float: right;

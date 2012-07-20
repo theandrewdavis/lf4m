@@ -64,6 +64,7 @@ $(document).ready(function() {
   var changeRealm = function(name, slug) {
     realmSlug = slug;
     $('#realm-name').text(name);
+    saveRealm(name, slug);
     clearNames();
     focusInput();
   };
@@ -71,8 +72,21 @@ $(document).ready(function() {
   // Enable input and realm select
   var enableAll = function() {
     $('#add input').prop('disabled', false);
-    $('#realm-dropdown .dropdown-toggle').removeClass('disabled');
+    $('#realm-dropdown').show();
     focusInput();
+  };
+  
+  // Save the current realm selection to a cookie
+  var saveRealm = function(name, slug) {
+    $.cookie('realm-name', name, {expires: 10 * 365});
+    $.cookie('realm-slug', slug, {expires: 10 * 365});
+  };
+  
+  // Load the saved realm selection
+  var loadRealm = function() {
+    var name = $.cookie('realm-name') || 'Azgalor';
+    var slug = $.cookie('realm-slug') || 'azgalor';
+    changeRealm(name, slug);
   };
   
   // Populate dropdown menu with realms and select default
@@ -82,7 +96,7 @@ $(document).ready(function() {
       _(data.realms).each(function(realm) {
         $('#realm-list').append('<li><a href="#" data-slug="' + realm.slug + '">' + realm.name + '</a></li>');
       });
-      changeRealm('Azgalor', 'azgalor');
+      loadRealm();
       enableAll();
     },
     error: function() {
