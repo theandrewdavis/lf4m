@@ -3,5 +3,5 @@ Web dashboard to help World of Warcraft raid leaders form pick-up groups. When y
 ### Why? ###
 When I was in charge of forming pick-up group raids, I found it difficult to keep track of everyone who whispered me and annoying to get the stats I cared about: spec, ilvl, and progression history. This dashboard uses [jquery-jsonp](http://code.google.com/p/jquery-jsonp/), [Twitter bootstrap](http://twitter.github.com/bootstrap/), and the [WoW Community API](http://blizzard.github.com/api-wow-docs/) to make that process a little less painful.
 
-### Usage ###
-The page is hosted on AppFog - [check it out](http://lf4m.aws.af.cm/). If you want to check it out but don't know any current character names, you can look at the [PvP leaderboards](http://us.battle.net/wow/en/pvp/arena/ruin/2v2) to find some names, but make sure you have the right realm selected.
+### Obsolete ###
+My time as a raid leader has come to an end, and so too has this app -- it is no longer hosted.
